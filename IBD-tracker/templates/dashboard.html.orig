@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Dashboard</title>
+</head>
+<body>
+  <div class="glass-pane">
+    <div class="container">
+        <div class="card">
+            <h2>Welcome, {{ current_user.username }}!</h2>
+            <form method="POST">
+                <input type="text" name="symptom" placeholder="Symptom" required>
+                <input type="number" name="severity" placeholder="Severity (1-10)" min="1" max="10" required>
+                <input type="date" name="date" required>
+                <button type="submit" class="btn">Add Symptom</button>
+            </form>
+            <div class="symptoms">
+                <h3>Your Symptom History</h3>
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Symptom</th>
+                        <th>Severity</th>
+                    </tr>
+                    {% for symptom in symptoms %}
+                    <tr>
+                        <td>{{ symptom.date }}</td>
+                        <td>{{ symptom.symptom }}</td>
+                        <td>{{ symptom.severity }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
+

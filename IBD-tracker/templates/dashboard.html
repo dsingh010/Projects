@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="glass-pane">
+        <div class="container">
+            <h2 class="title">Welcome, {{ current_user.username }}!</h2>
+            <form action="{{ url_for('submit_symptom') }}" method="POST">
+                <section class="section">
+                    <h3>Bowel Movements</h3>
+                        <p>During the past month, I had this approximate number of soft or loose bowel movements per day:</p>
+                        <label><input type="radio" name="bowel" value="0"> 0</label>
+                        <label><input type="radio" name="bowel" value="1-2"> 1–2</label>
+                        <label><input type="radio" name="bowel" value="3-5"> 3–5</label>
+                        <label><input type="radio" name="bowel" value="7-9"> 7–9</label>
+                        <label><input type="radio" name="bowel" value="10-12"> 10–12</label>
+                        <label><input type="radio" name="bowel" value="more"> More than 12</label>
+                </section>
+
+                <section class="section">
+                    <h3>Abdominal Pain</h3>
+                    <p>Over the past month, I would rate the severity of my abdominal pain as:</p>
+                    <input type="range" name="abdominal-pain" min="1" max="10" step="1">
+                    <output name="abdominal-pain-output">5</output>
+                </section>
+
+                <section class="section">
+                    <h3>Disease Flares</h3>
+                    <p>A disease flare is a period of symptom activity and can include abdominal pain, stool changes, urgency, and loss of appetite, among other symptoms that are attributable to your IBD.</p>
+                    <label><input type="radio" name="flare" value="0"> 0</label>
+                    <label><input type="radio" name="flare" value="1-2"> 1–2</label>
+                    <label><input type="radio" name="flare" value="3-5"> 3–5</label>
+                    <label><input type="radio" name="flare" value="7-9"> 7–9</label>
+                    <label><input type="radio" name="flare" value="10-12"> 10–12</label>
+                    <label><input type="radio" name="flare" value="more"> More than 12</label>
+                </section>
+
+                <section class="section">
+                    <h3>Primary Concern</h3>
+                    <p>My primary concern for today’s office visit:</p>
+                    <textarea name="primary-concern" rows="4"></textarea>
+                </section>
+
+                <button class="btn" type="submit">Submit</button>
+                <script>
+                    // Update the output element when the slider changes
+                    document.querySelector('input[name="abdominal-pain"]').addEventListener('input', function() {
+                        document.querySelector('output[name="abdominal-pain-output"]').textContent = this.value;
+                    });
+                </script>
+            </form>
+        </div>
+
+        <div class="container">
+            <section class="section">
+                <h3>Symptom History</h3>
+                <table class="symptom-history-table">
+                    <tr>
+                        <th>Date</th>
+                        <th>Bowel Movements</th>
+                        <th>Abdominal Pain</th>
+                        <th>Disease Flares</th>
+                        <!-- Add more columns for other symptom details -->
+                    </tr>
+                    {% for symptom in symptom_history %}
+                    <tr>
+                        <td>{{ symptom.date }}</td>
+                        <td>{{ symptom.bowel_movements }}</td>
+                        <td>{{ symptom.abdominal_pain }}</td>
+                        <td>{{ symptom.disease_flares }}</td>
+                        <!-- Add more columns for other symptom details -->
+                    </tr>
+                    {% endfor %}
+                </table>
+            </section>
+
+            <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+        </div>
+    </div>
+</body>
+</html>
+
