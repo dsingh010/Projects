@@ -125,7 +125,8 @@ public: /* Manipulation procedures */
     /*
      * Print the list.
      */
-    void printList();
+    void printList(std::stringstream& stream);
+    void printList(std::ostream& stream);
 
     /*
      * Print the list in reverse.

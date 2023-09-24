@@ -32,7 +32,7 @@ void append_list_print()
         new_list.append(i);
     }
     cout << "======= Print List using front pointer =======" << endl;
-    new_list.printList();
+    new_list.printList(std::cout);
     cout << "======= Print List using back pointer =======" << endl;
     new_list.printRevList();
 }
@@ -68,11 +68,11 @@ int main()
   random_list(&list_rand_num);
   cout << " =============  Before sort ========== " << endl;
 
-  list_rand_num.printList();
+  list_rand_num.printList(std::cout);
 
   cout << "================ ======================" << endl;
   insertion_sort(&list_rand_num);
   cout << " =============  After sort ========== " << endl;
-  list_rand_num.printList();
+  list_rand_num.printList(std::cout);
   return 0;
 }

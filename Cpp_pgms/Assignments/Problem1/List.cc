@@ -244,7 +244,7 @@ void List::deleteBack()
            tail->back = nullptr;
         } else {
             Node* back_node = tail->back;
-            back_node->back = nullptr;
+            back_node->front = nullptr;
             tail = back_node;
         }
         delete tmp_node;
@@ -266,13 +266,14 @@ void List::delete_list()
  * Prints to the file pointed to by out, a string representation of L consisting
  * of a space separated sequence of integers, with front on left.
  */
-void List::printList()
+void List::printList(std::ostream& stream)
 {
     clear();
     for (int i = 0; i < length(); i++) {
-        cout << index() << endl;
+        stream << index() << " ";
         moveNext();
     }
+    stream<< endl;
 }
 
 /*
