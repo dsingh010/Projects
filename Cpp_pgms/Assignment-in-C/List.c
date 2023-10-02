@@ -1,4 +1,5 @@
 #include "List.h"
+#include <assert.h>
 
 #define FAILED -1
 
@@ -6,11 +7,10 @@
 Node newNode(NodeElement data)
 {
     Node tmp_node = malloc(sizeof(struct NodeObj));
+    assert(tmp_node != NULL);
     if (tmp_node != NULL) {
         tmp_node->value = data;
         tmp_node->front = tmp_node->back = NULL;
-    } else {
-       printf("Failed to create an empty node\n");
     }
     return tmp_node;
 }
@@ -28,12 +28,11 @@ void freeNode(Node* pN)
 List newList()
 {
     List tmp_list = malloc(sizeof(struct ListObj));
+    assert(tmp_list != NULL);
     if (tmp_list != NULL) {
         tmp_list->list_length = 0;
         tmp_list->cursor_index = -1;
         tmp_list->head = tmp_list->tail = tmp_list->cursor = NULL;
-    } else {
-        printf("Failed to create an empty List\n");
     }
     return tmp_list;
 }
@@ -42,7 +41,7 @@ List newList()
 void freeList(List* pL)
 {
     /* Nothing to do for an empty List */
-    if (pL == NULL) {
+    if (pL == NULL || *pL == NULL) {
         return;
     }
     if ((*pL)->list_length > 0) {
@@ -104,6 +103,11 @@ bool equals(List A, List B)
 {
     if (A->list_length != B->list_length) {
         return false;
+    }
+    /* Two empty lists are equal */
+    if (A->list_length == B->list_length && A->list_length == 0)
+    {
+        return true;
     }
 
     moveFront(A);
