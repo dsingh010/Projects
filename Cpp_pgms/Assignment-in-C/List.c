@@ -89,9 +89,6 @@ int get(List L)
     if (L->list_length > 0 && L->cursor_index >= 0) {
         return L->cursor->value;
     }
-    /* cursor is not initialized or length < 1 */
-    printf("List error get called List length:%d cursor_index:%d\n",
-            L->list_length, L->cursor_index);
     return FAILED;
 }
 
@@ -136,7 +133,7 @@ void clear(List L)
 }
 
 /* Overwrites the cursor element’s data with x */
-void set_back(List L, int x)
+void set(List L, int x)
 {
     if (length(L) > 0 && L->cursor_index >= 0) {
         L->cursor->value = x;
@@ -259,6 +256,7 @@ void append(List L, int x)
         L->tail->back = NULL;
     }
     L->list_length++;
+    L->cursor_index++;
 }
 
 /*
@@ -296,6 +294,7 @@ void insertAfter(List L, int x)
     front_node->back = tmp_node;
     tmp_node->back = L->cursor;
     tmp_node->front = L->cursor->front;
+    L->cursor->front = tmp_node;
     L->list_length++;
 }
 
@@ -347,7 +346,20 @@ void delete(List L)
 {
     if (length(L) > 0 && index(L) >= 0)
     {
-        clear(L);
+        if (L->cursor_index == 0) {
+            deleteFront(L);
+        } else if (L->cursor_index == length(L) - 1) {
+            deleteBack(L);
+        } else {
+            Node back_node = L->cursor->back;
+            Node front_node = L->cursor->front;
+            front_node->back = back_node;
+            back_node->front = front_node;
+            free(L->cursor);
+            L->list_length = L->list_length - 1;
+        }
+        L->cursor = NULL;
+        L->cursor_index = -1;
     }
 }
 
@@ -361,7 +373,7 @@ void printList(FILE* out, List L)
     {
         moveFront(L);
         while (index(L) >= 0) {
-            fprintf(out, "%d -> ", get(L));
+            fprintf(out, "%d ", get(L));
             moveNext(L);
         }
     }
@@ -377,7 +389,7 @@ void printRevList(FILE* out, List L)
     {
         moveBack(L);
         while (index(L) >= 0) {
-            fprintf(out, "%d <- ", get(L));
+            fprintf(out, "%d ", get(L));
             movePrev(L);
         }
     }
@@ -397,7 +409,7 @@ List copyList(List L)
 
     List new_list = newList();
     moveFront(L);
-    while (L->cursor != L->tail) {
+    while (index(L) >= 0) {
         append(new_list, L->cursor->value);
         moveNext(L);
     }

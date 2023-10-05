@@ -1,20 +1,22 @@
-#------------------------------------------------------------------------------
-# Makefile for CSE 101 Programming Assignment 1
-#
-# make                   makes Lex
-# make ListClient        makes ListClient
-# make clean             removes all binaries
-# make checkClient       checks ListClient for memory errors
-# make checkLex          checks Lex for memory errors
-#------------------------------------------------------------------------------
-ListClient: ListClient.o List.o
-	gcc -std=c17 -Wall -o ListClient ListClient.o List.o
+CC = gcc
+CFLAGS = -g -std=c17 -Wall
 
-ListClient.o : ListClient.c List.h
-	gcc -std=c17 -Wall -c ListClient.c
+SOURCE1 = Lex.c List.c
+SOURCE2 = ListTest.c List.c
 
-List.o : List.c List.h
-	gcc -g -std=c17 -Wall -c List.c
+OBJ1 = $(SOURCE1:.c=.o)
+OBJ2 = $(SOURCE2:.c=.o)
 
-clean :
-	rm -f Lex ListClient Lex.o ListClient.o List.o
+OUTPUT1 = Lex
+OUTPUT2 = ListTest
+
+all: $(OUTPUT1) $(OUTPUT2)
+
+$(OUTPUT1): $(SOURCE1)
+	$(CC) $(CFLAGS) -o $(OUTPUT1) $(SOURCE1)
+
+$(OUTPUT2): $(SOURCE2)
+	$(CC) $(CFLAGS) -o $(OUTPUT2) $(SOURCE2)
+
+clean:
+	rm -f $(OBJ1) $(OBJ2) $(OUTPUT1) $(OUTPUT2)

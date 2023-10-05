@@ -279,7 +279,7 @@ void insertBefore(List L, int x)
     tmp_node->back = back_node;
     L->cursor->back = tmp_node;
     L->list_length++;
-    //L->cursor_index++;
+    L->cursor_index++;
 }
 
 /* Insert new element after cursor.Pre: length()>0, index()>=0 */
@@ -296,7 +296,6 @@ void insertAfter(List L, int x)
     front_node->back = tmp_node;
     tmp_node->back = L->cursor;
     tmp_node->front = L->cursor->front;
-    L->cursor->front = tmp_node;
     L->list_length++;
 }
 
@@ -348,20 +347,7 @@ void delete(List L)
 {
     if (length(L) > 0 && index(L) >= 0)
     {
-        if (L->cursor_index == 0) {
-            deleteFront(L);
-        } else if (L->cursor_index == length(L) - 1) {
-            deleteBack(L);
-        } else {
-            Node back_node = L->cursor->back;
-            Node front_node = L->cursor->front;
-            front_node->back = back_node;
-            back_node->front = front_node;
-            free(L->cursor);
-            L->list_length = L->list_length - 1;
-        }
-        L->cursor = NULL;
-        L->cursor_index = -1;
+        clear(L);
     }
 }
 
@@ -411,7 +397,7 @@ List copyList(List L)
 
     List new_list = newList();
     moveFront(L);
-    while (index(L) >= 0) {
+    while (L->cursor != L->tail) {
         append(new_list, L->cursor->value);
         moveNext(L);
     }

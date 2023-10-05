@@ -1,0 +1,68 @@
+Assignment Description
+----------------------
+This assignment includes a Makefile that generates two binary executables: ListTest and Lex. This README provides instructions for executing these binaries and explains their functionality.
+
+ListTest
+---------
+The ListTest program serves two main functions:
+i) test_list(): This function tests various functionalities of the List ADT, including:
+    - List traversal procedures such as printList.
+    - Manipulation procedures like moveFront(), index(), moveNext(), delete(), insertAfter(), and insertBefore().
+ii) test_lexlist(): This function uses List ADT procedures to implement a simple sorting algorithm that sorts an array of strings lexicographically. To validate the sorting algorithm, the input array is randomly shuffled.
+
+Lex
+---
+The Lex program, like ListTest, utilizes the List ADT. It reads strings into an in-memory array provided as a command-line argument. The first file specified is treated as the input file. As the strings are read into memory, a list is created to store the corresponding indices of these array elements.
+
+During the sorting process, the array indices are used to retrieve the corresponding string from the actual array. These strings are then compared lexicographically in ascending order using the strcmp() function.
+
+Finally, the list containing indices, corresponding to the respective positions in the string array, is traversed linearly to print the sorted list of strings.
+
+Compilation
+-----------
+To compile both programs, execute the following command:
+make all
+gcc -g -std=c17 -Wall -o Lex Lex.c List.c
+gcc -g -std=c17 -Wall -o ListTest ListTest.c List.c
+
+To remove the old binaries, use:
+make clean
+rm -f Lex ListTest
+
+Execution of Lex
+-----------------
+To execute the Lex program, use the following command:
+./Lex input output
+
+This command sorts the strings and writes them to output.txt.
+
+    Example Input and Output
+    -----------------------
+    Input (head input):
+
+    plaintext
+    Copy code
+    one
+    two
+    three
+    four
+    five
+    six
+    Output (head output):
+
+    plaintext
+    Copy code
+    eight
+    eighteen
+    eleven
+    fifteen
+    five
+    four
+    Execution of ListTest
+
+Execution of ListTest program
+------------------------------
+To execute the ListTest program, use the following command:
+$ ./ListTest
+The program checks the functionality of the List ADT and the sorting implementation.
+
