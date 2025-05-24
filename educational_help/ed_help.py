@@ -2,7 +2,7 @@ import openai
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 # Replace with your OpenAI API key
-api_key = "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"
+api_key = OPENAI_KEY
 
 # Define a dictionary of subjects and their descriptions
 subjects = {
