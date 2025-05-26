@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Medical Chat</title>
+    <style>
+      body { font-family: sans-serif; line-height: 1.6; }
+      #responseArea { margin-top: 20px; padding: 15px; border: 1px solid #ccc; background-color: #f9f9f9; }
+      .model-response { margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #eee; }
+      .model-response h3 { margin-top: 0; }
+      .model-response ul { padding-left: 20px; }
+    </style>
+  </head>
+  <body>
+    <h1>Upload an Image and Query</h1>
+    <form id="uploadForm" action="/upload_and_query" method="post" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required>
+      <input type="text" name="query" placeholder="Your question…" required>
+      <button type="submit">Send</button>
+    </form>
+    <div id="responseArea"></div>
+
+    <script>
+      document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const formData = new FormData(this);
+        const responseArea = document.getElementById('responseArea');
+        responseArea.innerHTML = 'Processing...'; // Show loading indicator
+
+        try {
+          const response = await fetch(this.action, {
+            method: this.method,
+            body: formData
+          });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            responseArea.innerHTML = '<p style="color: red;">Error: ' + response.status + ' ' + response.statusText + '</p><pre>' + errorText + '</pre>';
+            return;
+          }
+
+          const result = await response.json();
+          
+          let formattedOutput = '';
+
+          for (const modelName in result) {
+            if (result.hasOwnProperty(modelName)) {
+              formattedOutput += `<div class="model-response"><h3>${modelName.toUpperCase()} Response:</h3>`;
+              const modelText = result[modelName];
+
+              // Simple formatting for text and potential bullet points
+              const lines = modelText.split('\n').filter(line => line.trim() !== '');
+              
+              let inBulletSection = false;
+              let bulletHtml = '';
+
+              lines.forEach(line => {
+                if (line.trim().startsWith('**') && line.trim().endsWith(':**')) {
+                    // Start of a potential bullet point section
+                    if(inBulletSection) { // Close previous bullet section if open
+                        formattedOutput += `<ul>${bulletHtml}</ul>`;
+                        bulletHtml = '';
+                    }
+                    formattedOutput += `<p><strong>${line.trim().replace(/\*\*/g, '')}</strong></p>`;
+                    inBulletSection = true;
+
+                } else if (line.trim().startsWith('*') || line.trim().startsWith('-') || /^[\d]+\./.test(line.trim())) {
+                    // This looks like a bullet point
+                    bulletHtml += `<li>${line.trim().substring(1).trim()}</li>`;
+                } else {
+                    // Regular paragraph or line
+                    if(inBulletSection) { // Close previous bullet section if open
+                        formattedOutput += `<ul>${bulletHtml}</ul>`;
+                        bulletHtml = '';
+                        inBulletSection = false;
+                    }
+                    formattedOutput += `<p>${line}</p>`;
+                }
+              });
+              
+              // Close any remaining open bullet section
+              if(inBulletSection) {
+                   formattedOutput += `<ul>${bulletHtml}</ul>`;
+              }
+
+              formattedOutput += '</div>';
+            }
+          }
+
+          responseArea.innerHTML = formattedOutput;
+
+        } catch (error) {
+          responseArea.innerHTML = '<p style="color: red;">An error occurred: ' + error + '</p>';
+        }
+      });
+    </script>
+  </body>
+</html>
