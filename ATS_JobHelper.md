@@ -2,7 +2,6 @@
 
 ## 🚀 Mission
 ATS Resume Optimizer empowers job seekers to maximize their chances of passing Applicant Tracking Systems (ATS) and landing interviews. It uses advanced AI to optimize resumes and generate tailored cover letters, ensuring your application is keyword-rich, relevant, and professionally formatted for each job.
-Chorme Extension Link: Coming Soon!
 ---
 
 ## 🛠️ Tech Stack
