@@ -1,0 +1,17 @@
+# Use the correct Python base image  
+FROM python:3.10-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy your app code into the container
+COPY . /app
+
+# Install Python dependencies
+RUN pip install --no-cache-dir langchain openai fastapi uvicorn
+
+# Set environment variable name correctly 
+ENV OPENAI_API_KEY=<YOUR_OPENAI_KEY>
+
+#When the container starts, run this command
+CMD ["uvicorn", "agent:app", "--host", "0.0.0.0", "--port", "8000"]
