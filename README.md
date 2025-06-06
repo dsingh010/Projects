@@ -20,19 +20,6 @@ Frameworks & Libraries: TensorFlow, PyTorch, Pandas, NumPy, Matplotlib
 Tools: VS Code, Jupyter Notebook, Git
 
 
-🌐 Projects
-
-- AI for Mental Health Awareness
-
-Description: Using time series analysis and SARIMA modeling to identify trends in Google search data for improving mental health resources.
-
-Tech Stack: Python, Pandas, Matplotlib, Scikit-learn
-
-IBD Tracker
-
-Description: Developed a web application for IBD patients to track symptoms, lifestyle habits, treatments, and overall well-being, improving disease management and communication 
-with healthcare providers.Reduced personal IBD symptoms by 50% monthly; planning to incorporate predictive features and roll out the application to nonprofits in the futures.
-Tech Stack: Python, Java Script, HTML
 
 🤝 Let’s Connect
 
