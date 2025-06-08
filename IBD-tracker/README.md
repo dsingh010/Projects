@@ -17,9 +17,8 @@ Our mission is to empower individuals with IBD to take control of their health j
 - **Charts**: Recharts
 
 ### Backend
-- **Framework**: Python with FastAPI
+- **Framework**: Python with Flask
 - **Database**: SQLite
-- **API Documentation**: FastAPI's built-in Swagger UI
 - **Authentication**: JWT
 
 ### DevOps
