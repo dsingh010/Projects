@@ -23,8 +23,8 @@ Here is a description of the key files and directories in the project:
 | `app.py`              | **Main Application File**. This is the entry point for the Streamlit app. It defines the entire user interface (UI), handles data loading and uploading, orchestrates the analysis process, and displays all tables and charts. |
 | `claude_analyzer.py`  | **The AI Engine**. This file contains the `ClaudeAnalyzer` class, which manages all communication with the Claude API. It includes methods for calculating fit scores, enriching data, and handling API errors and retries. |
 | `sample_data.py`      | **Sample Dataset**. Provides a default list of startups so the application can be used immediately without requiring a file upload.                                                                    |
-| `test_error_handling.py` | **Testing Script**. A utility script used during development to verify that the error handling and logging in `claude_analyzer.py` and `app.py` work as expected.                                    |
-| `requirements.txt`    | **Dependencies**. Lists all the Python libraries needed to run the project. You install these using `pip install -r requirements.txt`.                                                                    |
+| `run.py`                | **Runner Script**. A convenience script to check for dependencies and a valid `.env` file before launching the application. You can use `python run.py` as an alternative to `streamlit run app.py`. |
+
 | `.env`                | **Environment Variables**. A local, private file (not committed to version control) where the `ANTHROPIC_API_KEY` is securely stored.                                                                   |
 | `README.md`           | **Project Documentation**. This file, which you are currently reading.                                                                                                                                      |
 
