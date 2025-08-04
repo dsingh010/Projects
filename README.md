@@ -7,7 +7,8 @@ Current Role: Google AI Studio Fellow, leading a team to analyze mental health t
 
 Past Experience: Technical Project Manager Intern at Iconiq Capital, where I optimized operations for an $80B investment management firm through developing technical solutions for business owners across 4 departments.
 
-Passions: Advocating for inlcusive technology and creating tools that foster equity and inclusion.
+Passions: Advocating for inclusive technology and creating tools that foster equity and inclusion.
+Product Portfolio: https://www.notion.so/Product-Manager-Portfolio-1fc988e8cd5780aeb2d4e6387aa5939f?source=copy_link
 
 
 
